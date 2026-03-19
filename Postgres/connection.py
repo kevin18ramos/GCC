@@ -7,12 +7,12 @@ import argparse
 
 
 
-def connection(USER,PASSWORD,db_to_use):
+def connection(USER,PASSWORD,db_to_use,host):
     try:
 
         db_pool = pool.SimpleConnectionPool(
             1, 4,
-            host="localhost",
+            host=host,
             database=db_to_use,
             user=USER,
             password=PASSWORD
