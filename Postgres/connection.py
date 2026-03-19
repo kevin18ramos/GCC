@@ -4,10 +4,29 @@ from psycopg2 import pool
 import argparse
 
 
+import psycopg2
+from psycopg2 import OperationalError
+
+def connection(USER, PASSWORD, db_to_use, host):
+    try:
+        conn = psycopg2.connect(
+            host=host,
+            database=db_to_use,
+            user=USER,
+            password=PASSWORD
+        )
+
+        cursor = conn.cursor()
+
+        return conn, cursor
+
+    except OperationalError as e:
+        print("Connection failed")
+        print(e)
+        exit(0)
 
 
-
-def connection(USER,PASSWORD,db_to_use,host):
+def pool_connection(USER,PASSWORD,db_to_use,host):
     try:
 
         db_pool = pool.SimpleConnectionPool(
