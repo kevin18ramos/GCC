@@ -5,11 +5,13 @@ import psycopg2
 from psycopg2 import OperationalError
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
-file_path = BASE_DIR.parent / "gc.config" / "host_file.txt"
 
-def connection(file_path):
-    conn_info = t.read_host_file(file_path)
+def d_cn(caller_file):
+    #direct connection
+    base_dir = Path(caller_file).resolve().parent
+    file_path = base_dir.parent / "gc.config" / "host_file.txt"
+    conn_info = read_host_file(file_path)
+
     try:
         conn = psycopg2.connect(
             host=conn_info['host'],
@@ -28,7 +30,7 @@ def connection(file_path):
         return e
 
 
-def pool_connection(USER,PASSWORD,db_to_use,host):
+def pool(USER,PASSWORD,db_to_use,host):
     try:
 
         db_pool = pool.SimpleConnectionPool(
@@ -53,4 +55,20 @@ def pool_connection(USER,PASSWORD,db_to_use,host):
         exit(0)
 
 
+def read_host_file(file_path):
+    with open(file_path, "r") as f:
+        line = f.readline().strip()
 
+    parts = [p.strip() for p in line.split("|")]
+
+    if len(parts) != 4:
+        raise ValueError("Invalid host file format")
+
+    db_name, host, user, password = parts
+
+    return {
+        "db_name": db_name,
+        "host": host,
+        "user": user,
+        "password": password
+    }
