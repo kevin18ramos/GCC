@@ -25,7 +25,7 @@ def connection(file_path):
     except OperationalError as e:
         print("Connection failed")
         print(e)
-        exit(0)
+        return e
 
 
 def pool_connection(USER,PASSWORD,db_to_use,host):
