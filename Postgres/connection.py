@@ -1,13 +1,8 @@
-import psycopg2
-from psycopg2 import OperationalError
 from psycopg2 import pool
 import argparse
 import task as t
-
-
 import psycopg2
 from psycopg2 import OperationalError
-
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
