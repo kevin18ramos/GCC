@@ -2,18 +2,25 @@ import psycopg2
 from psycopg2 import OperationalError
 from psycopg2 import pool
 import argparse
+import task as t
 
 
 import psycopg2
 from psycopg2 import OperationalError
 
-def connection(USER, PASSWORD, db_to_use, host):
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+file_path = BASE_DIR.parent / "gc.config" / "host_file.txt"
+
+def connection(file_path):
+    conn_info = t.read_host_file(file_path)
     try:
         conn = psycopg2.connect(
-            host=host,
-            database=db_to_use,
-            user=USER,
-            password=PASSWORD
+            host=conn_info['host'],
+            database=conn_info['db_to_use'],
+            user=conn_info['user'],
+            password=conn_info['password']
         )
 
         cursor = conn.cursor()

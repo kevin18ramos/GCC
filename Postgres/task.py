@@ -1,7 +1,19 @@
 import connection as cn
 
-def connection_run(db,user,pwsd):
-    conn = cn.connection(db,user,pwsd)
+def read_host_file(file_path):
+    with open(file_path, "r") as f:
+        line = f.readline().strip()
 
-def insert_table(db,user,pwsd,schema,table,values):
-    conn = cn.connection(db,user,pwsd)
+    parts = [p.strip() for p in line.split("|")]
+
+    if len(parts) != 4:
+        raise ValueError("Invalid host file format")
+
+    db_name, host, user, password = parts
+
+    return {
+        "db_name": db_name,
+        "host": host,
+        "user": user,
+        "password": password
+    }
