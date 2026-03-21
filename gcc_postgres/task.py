@@ -1,4 +1,4 @@
-import cn as cn
+import pcn as cn
 
 def insert_statement_s(schema_name, table_name, dict_list):
     insert_sql_list = []
