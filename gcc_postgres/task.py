@@ -1,4 +1,4 @@
-import pcn as cn
+import pcn as pcn
 
 def insert_statement_s(schema_name, table_name, dict_list):
     insert_sql_list = []
@@ -36,6 +36,6 @@ def di_table(caller_file, schema_name, table_name, dict_list):
 
     print(sql)
 
-    #conn,cursor = cn.d_cn(caller_file)
+    #conn,cursor = pcn.d_cn(caller_file)
     #cursor.execute(sql)
     #conn.commit()
