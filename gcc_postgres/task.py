@@ -36,6 +36,6 @@ def di_table(caller_file, schema_name, table_name, dict_list):
 
     print(sql)
 
-    #conn,cursor = pcn.d_cn(caller_file)
-    #cursor.execute(sql)
-    #conn.commit()
+    conn,cursor = pcn.d_cn(caller_file)
+    cursor.execute(sql)
+    conn.commit()
