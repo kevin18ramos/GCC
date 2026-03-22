@@ -30,7 +30,11 @@ def d_cn(caller_file):
         return e
 
 
-def pool(USER,PASSWORD,db_to_use,host):
+def pool(caller_file):
+    #direct connection
+    base_dir = Path(caller_file).resolve().parent
+    file_path = base_dir.parent / "gc.config" / "host_file.txt"
+    conn_info = read_host_file(file_path)
     try:
 
         db_pool = pool.SimpleConnectionPool(
