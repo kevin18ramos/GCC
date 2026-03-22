@@ -39,10 +39,10 @@ def pool(caller_file):
 
         db_pool = pool.SimpleConnectionPool(
             1, 4,
-            host=host,
-            database=db_to_use,
-            user=USER,
-            password=PASSWORD
+            host=conn_info['host'],
+            database=conn_info['db_name'],
+            user=conn_info['user'],
+            password=conn_info['password']
         )
 
         # Get connection from pool
