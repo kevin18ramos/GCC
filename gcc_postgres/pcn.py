@@ -15,7 +15,7 @@ def d_cn(caller_file):
     try:
         conn = psycopg2.connect(
             host=conn_info['host'],
-            database=conn_info['db_to_use'],
+            database=conn_info['db_name'],
             user=conn_info['user'],
             password=conn_info['password']
         )
