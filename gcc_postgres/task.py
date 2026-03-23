@@ -38,3 +38,40 @@ def di_table(caller_file, schema_name, table_name, dict_list):
     conn,cursor = pcn.d_cn(caller_file)
     cursor.execute(sql)
     conn.commit()
+
+def delete_statement_s(schema_name, table_name, dict_list):
+    delete_sql_list = []
+    where_clause = ''
+
+    for value_dict in dict_list:
+        x = 0
+        for value in value_dict.values():
+            x+=1
+            if x > 1:
+                sql = f""" AND {value["name"]} = '{value["value"]}' """
+                where_clause.append(sql)
+            else:
+                sql = f"""
+            WHERE {value["name"]} = '{value["value"]}'
+            """
+                where_clause.append(sql)
+
+        single_delete = f"""
+        DELETE FROM {schema_name}.{table_name} {where_clause}
+        """
+        delete_sql_list.append(single_delete.strip())
+
+    return "\n".join(delete_sql_list)
+
+
+def dd_table(caller_file, schema_name, table_name, dict_list):
+    sql = f"""
+    BEGIN;
+    {delete_statement_s(schema_name, table_name, dict_list)}
+    COMMIT;
+    """
+
+
+    conn,cursor = pcn.d_cn(caller_file)
+    cursor.execute(sql)
+    conn.commit()
