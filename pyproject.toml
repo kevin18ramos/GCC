@@ -2,6 +2,9 @@
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+include = ["gcc_postgres*", "virt_m*"]
+
 [project]
 name = "GCC"
 version = "1.2"
