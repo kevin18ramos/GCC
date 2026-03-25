@@ -1,6 +1,8 @@
 import subprocess
 
-
+def status(sh='vm_status_check.sh'):
+    result = run(template=sh, x=False)
+    return result
 
 def script_order(sh,x):
     template = open("deploy/startup.sh").read()

@@ -4,4 +4,4 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "GCC"
-version = "1.02"
+version = "1.2"
