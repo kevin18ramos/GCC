@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VM Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_vm.css') }}">
+</head>
+<body>
+    <main class="vm-page">
+        <section class="vm-card">
+            <h1 class="vm-title">Virtual Machine Control</h1>
+
+            <div class="vm-info">
+                <p><strong>Name:</strong> {{ vm.vm_name }}</p>
+                <p><strong>Zone:</strong> {{ vm.zone }}</p>
+                <p><strong>Status:</strong> <span class="vm-status">{{ vm.status }}</span></p>
+            </div>
+
+            <div class="vm-actions">
+                <form method="POST" action="/admin/vm/start">
+                    <button type="submit" class="vm-btn">Start</button>
+                </form>
+
+                <form method="POST" action="/admin/vm/stop">
+                    <button type="submit" class="vm-btn">Stop</button>
+                </form>
+
+                <form method="POST" action="/admin/vm/pause">
+                    <button type="submit" class="vm-btn">Pause</button>
+                </form>
+
+                <form method="POST" action="/admin/vm/resume">
+                    <button type="submit" class="vm-btn">Resume</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
