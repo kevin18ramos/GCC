@@ -1,3 +1,6 @@
 #!/bin/bash
-nohup bash "$1" > output.log 2>&1 &
-echo $! > process.pid
+set -e
+
+systemctl daemon-reload
+systemctl enable {{vm}}
+systemctl start {{vm}}

@@ -1,2 +1,12 @@
 #Need to review files,branches,versions to outline a proper work flow
 #This will cause less confusion when using with other repo apps as an api
+
+#Phase 1: VM controls
+Build stop_vm
+Build pause_vm
+Build start_vm
+Build get_vm_status
+Phase 2: Cron creation
+Phase 3: Monitoring pipeline
+Phase 4: DB polling job
+Phase 5: UI or reporting

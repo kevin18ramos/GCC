@@ -1,38 +1,42 @@
 import subprocess
 
-def status(sh='vm_status_check.sh'):
-    result = run(template=sh, x=False)
+
+
+
+
+def status(vm_file):
+    config = read_vm_file(vm_file)
+    sh = 'vm_status_check.sh'
+    result = run(template=sh, x=config)
     if result == "Running":
         return True
     else:
         return False
 
+def stop_vm(vm_file):
+    config = read_vm_file(vm_file)
+    sh = 'vm_status_check.sh'
+    run(template=sh, x=False)
 
-def script_order(sh,x):
-    template = open("deploy/startup.sh").read()
+def pause_vm(vm_file):
+    config = read_vm_file(vm_file)
+    sh = 'vm_status_check.sh'
+    run(template=sh, x=False)
 
-    for y in x:
-        script = template.replace("{{y}}", y)
 
-    #need to lay this out
-    for x in sh:
-        print(f"...executing {x}...")
-        result = subprocess.run(
-            ["bash", script],
-            check=True,
-            repo={repo},
-            main_file={main_file}
-        )
-    return result
+def start_vm(vm_file):
+    config = read_vm_file(vm_file)
+    sh = 'vm_status_check.sh'
+    run(template=sh, x=False)
 
-def run(template,x=False):
+def run(template,x:list):
     script = template
     print(f"...Running {script}...")
     if x:
         for y in x:
             script = script.replace("{{y}}", y)
-    subprocess.run(["bash", script], check=True)
-
+    x = subprocess.run(["bash", script], check=True)
+    return x
 
 
 def create_vm(vm_name: str, zone: str, startup_script_path: str) -> str:
@@ -71,7 +75,22 @@ def create_vm(vm_name: str, zone: str, startup_script_path: str) -> str:
 
 
 
+def read_vm_file(file_path):
+    with open(file_path, "r") as f:
+        line = f.readline().strip()
 
+    parts = [p.strip() for p in line.split("|")]
+
+    if len(parts) != 4:
+        raise ValueError("Invalid host file format")
+
+    vm_name , zone , project_id , instance_id= parts
+
+
+    return [vm_name,
+         zone,
+         project_id,
+         instance_id]
 
 
 
